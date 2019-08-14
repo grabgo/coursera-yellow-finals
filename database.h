@@ -23,11 +23,6 @@ public:
 
             const Date &date = item.first;
 
-            /** Check whether current date is applicable to current predicate. This string defined in EventComparisonNode
-             and always returns true for any comparison, which allows to avoid unnecessary comparisons.
-             **/
-            if (!predicate(date, "{%signal%pill%}")) continue;
-
             // Here we iterate through history to maintain order in which elements were added
             for (const std::string &event : history.at(date)) {
                 if (predicate(date, event))
@@ -45,14 +40,7 @@ public:
         // Iterating through map<Date, set<string>> - unique storage
         for (auto storage_iter = storage.begin(); storage_iter != storage.end();) {
 
-            /** Check whether current date is applicable to current predicate. This string defined in EventComparisonNode
-             and always returns true for any comparison, which allows to avoid unnecessary comparisons.
-             **/
             const Date &date = storage_iter->first;
-            if (!predicate(date, "{%signal%pill%}")) {
-                storage_iter++;
-                continue;
-            }
 
             std::set<std::string> &storage_events = storage_iter->second;
             std::vector<std::string> &history_events = history.at(date);
