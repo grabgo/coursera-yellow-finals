@@ -77,7 +77,7 @@ public:
                     }
             );
 
-            history_events.resize(std::distance(history_events.begin(), history_border));
+            history_events.erase(history_border, history_events.end());
 
             //if all elements within vector have been deleted we clear map record
             if (history_events.empty()) {
